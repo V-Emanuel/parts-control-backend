@@ -12,6 +12,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import { HttpContext } from '@adonisjs/core/http'
 import TypesController from '#controllers/types_controller'
+import StatusesController from '#controllers/statuses_controller'
 
 router.get('/', async () => {
   return {
@@ -41,10 +42,20 @@ router.get('/validate-token', async ({ response, auth }: HttpContext) => {
   }
 })
 
-router.get('/types', [TypesController, 'index']).use(middleware.auth())
-router.get('types/:id', [TypesController, 'show']).use(middleware.auth())
-router.post('/types', [TypesController, 'store']).use(middleware.auth()).use(middleware.admin())
 router
-  .delete('/types/:id', [TypesController, 'destroy'])
+  .group(() => {
+    router.get('/types', [TypesController, 'index'])
+    router.get('types/:id', [TypesController, 'show'])
+    router.get('/statuses', [StatusesController, 'index'])
+    router.get('statuses/:id', [StatusesController, 'show'])
+
+    router
+      .group(() => {
+        router.post('/types', [TypesController, 'store'])
+        router.delete('/types/:id', [TypesController, 'destroy'])
+        router.post('/statuses', [StatusesController, 'store'])
+        router.delete('/statuses/:id', [StatusesController, 'destroy'])
+      })
+      .use(middleware.admin())
+  })
   .use(middleware.auth())
-  .use(middleware.admin())
