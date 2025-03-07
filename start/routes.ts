@@ -11,6 +11,7 @@ import AuthController from '#controllers/auth_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import { HttpContext } from '@adonisjs/core/http'
+import TypesController from '#controllers/types_controller'
 
 router.get('/', async () => {
   return {
@@ -18,10 +19,18 @@ router.get('/', async () => {
   }
 })
 
-router.post('/register', [AuthController, 'register']).as('auth.register')
+router
+  .post('/register', [AuthController, 'register'])
+  .as('auth.register')
+  .use(middleware.auth())
+  .use(middleware.admin())
 router.post('/login', [AuthController, 'login']).as('auth.login')
 router.delete('/logout', [AuthController, 'logout']).as('auth.logout').use(middleware.auth())
-router.get('/me', [AuthController, 'me']).as('auth.me')
+router
+  .get('/me', [AuthController, 'me'])
+  .as('auth.me')
+  .use(middleware.auth())
+  .use(middleware.admin())
 
 router.get('/validate-token', async ({ response, auth }: HttpContext) => {
   try {
@@ -31,3 +40,11 @@ router.get('/validate-token', async ({ response, auth }: HttpContext) => {
     return response.unauthorized({ message: 'Token inválido' })
   }
 })
+
+router.get('/types', [TypesController, 'index']).use(middleware.auth())
+router.get('types/:id', [TypesController, 'show']).use(middleware.auth())
+router.post('/types', [TypesController, 'store']).use(middleware.auth()).use(middleware.admin())
+router
+  .delete('/types/:id', [TypesController, 'destroy'])
+  .use(middleware.auth())
+  .use(middleware.admin())
