@@ -10,6 +10,7 @@
 import AuthController from '#controllers/auth_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import { HttpContext } from '@adonisjs/core/http'
 
 router.get('/', async () => {
   return {
@@ -17,8 +18,16 @@ router.get('/', async () => {
   }
 })
 
-
 router.post('/register', [AuthController, 'register']).as('auth.register')
 router.post('/login', [AuthController, 'login']).as('auth.login')
 router.delete('/logout', [AuthController, 'logout']).as('auth.logout').use(middleware.auth())
 router.get('/me', [AuthController, 'me']).as('auth.me')
+
+router.get('/validate-token', async ({ response, auth }: HttpContext) => {
+  try {
+    const user = await auth.authenticate()
+    return response.json({ id: user.id, fullName: user.fullName })
+  } catch {
+    return response.unauthorized({ message: 'Token inválido' })
+  }
+})
