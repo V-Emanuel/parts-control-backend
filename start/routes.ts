@@ -14,6 +14,7 @@ import { HttpContext } from '@adonisjs/core/http'
 import TypesController from '#controllers/types_controller'
 import StatusesController from '#controllers/statuses_controller'
 import CompaniesController from '#controllers/companies_controller'
+import UserCompaniesController from '#controllers/user_companies_controller'
 
 router.get('/', async () => {
   return {
@@ -64,3 +65,12 @@ router
       .use(middleware.admin())
   })
   .use(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/user-companies', [UserCompaniesController, 'store'])
+    router.delete('/user-companies/:id', [UserCompaniesController, 'destroy'])
+    router.get('/user-companies', [UserCompaniesController, 'index'])
+  })
+  .use(middleware.auth())
+  .use(middleware.admin())
