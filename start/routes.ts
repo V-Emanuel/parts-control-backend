@@ -13,6 +13,7 @@ import { middleware } from './kernel.js'
 import { HttpContext } from '@adonisjs/core/http'
 import TypesController from '#controllers/types_controller'
 import StatusesController from '#controllers/statuses_controller'
+import CompaniesController from '#controllers/companies_controller'
 
 router.get('/', async () => {
   return {
@@ -55,6 +56,10 @@ router
         router.delete('/types/:id', [TypesController, 'destroy'])
         router.post('/statuses', [StatusesController, 'store'])
         router.delete('/statuses/:id', [StatusesController, 'destroy'])
+        router.get('/company', [CompaniesController, 'index'])
+        router.get('/company/:id', [CompaniesController, 'show'])
+        router.post('/company', [CompaniesController, 'store'])
+        router.delete('/company/:id', [CompaniesController, 'destroy'])
       })
       .use(middleware.admin())
   })
