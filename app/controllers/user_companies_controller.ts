@@ -6,7 +6,7 @@ export default class UserCompaniesController {
   async index({ auth, response }: HttpContext) {
     const user = await auth.authenticate()
 
-    if (user.admin === 1) {
+    if (user.admin === true) {
       const companies = await Company.all()
       return response.json(companies)
     }
@@ -20,7 +20,7 @@ export default class UserCompaniesController {
   async store({ request, auth, response }: HttpContext) {
     const admin = await auth.authenticate()
 
-    if (admin.admin !== 1) {
+    if (admin.admin !== true) {
       return response.unauthorized({ message: 'Apenas administradores podem atribuir acessos.' })
     }
 
@@ -34,7 +34,7 @@ export default class UserCompaniesController {
   async destroy({ params, auth, response }: HttpContext) {
     const admin = await auth.authenticate()
 
-    if (admin.admin !== 1) {
+    if (admin.admin !== true) {
       return response.unauthorized({ message: 'Apenas administradores podem remover acessos.' })
     }
 

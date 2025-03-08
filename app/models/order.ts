@@ -77,48 +77,48 @@ export default class Order extends BaseModel {
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare nf_date: DateTime
+  declare nfDate: DateTime
 
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare accuracy_date: DateTime
+  declare accuracyDate: DateTime
 
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare entry_date: DateTime
+  declare entryDate: DateTime
 
   @column()
-  declare days_tt: number
+  declare daysTt: number
 
   @column()
-  declare days_stock: number
+  declare daysStock: number
 
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare first_contact: DateTime
+  declare firstContact: DateTime
 
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare second_contact: DateTime
+  declare secondContact: DateTime
 
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare third_contact: DateTime
+  declare thirdContact: DateTime
 
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare agenda_date: DateTime
+  declare agendaDate: DateTime
 
   @column.date({
     serialize: (value) => value.toFormat('yyyy-MM-dd'),
   })
-  declare application_date: DateTime
+  declare applicationDate: DateTime
 
   @column()
   declare observations: string

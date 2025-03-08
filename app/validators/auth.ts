@@ -1,7 +1,7 @@
 import vine from '@vinejs/vine'
 
 const password = vine.string().minLength(8)
-const admin = vine.number().in([0, 1])
+const admin = vine.boolean()
 
 export const registerValidator = vine.compile(
   vine.object({

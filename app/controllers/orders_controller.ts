@@ -6,7 +6,7 @@ export default class OrdersController {
   async index({ auth, response }: HttpContext) {
     const user = await auth.authenticate()
 
-    if (user.admin === 1) {
+    if (user.admin === true) {
       const orders = await Order.query().preload('company')
       return response.json(orders)
     }
@@ -41,7 +41,7 @@ export default class OrdersController {
       'company_id',
       'os_orc',
       'order_date',
-      'consultant_id',
+      'user_id',
       'client',
       'model',
       'description',
@@ -77,7 +77,7 @@ export default class OrdersController {
   async destroy({ params, auth, response }: HttpContext) {
     const user = await auth.authenticate()
 
-    if (user.admin !== 1) {
+    if (user.admin !== true) {
       return response
         .status(403)
         .json({ message: 'Acesso negado: apenas administradores podem excluir pedidos' })
