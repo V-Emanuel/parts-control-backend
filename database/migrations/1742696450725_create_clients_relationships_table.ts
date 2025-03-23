@@ -12,7 +12,7 @@ export default class extends BaseSchema {
       table.date('agenda_date').nullable()
       table.date('application_date').nullable()
       table.text('observations').nullable()
-      table.integer('orders_data').unsigned().references('id').inTable('orders_data')
+      table.integer('orders_data_id').unsigned().references('id').inTable('orders_data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
