@@ -6,14 +6,14 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.date('shipping_date')
+      table.datetime('shipping_date').nullable()
       table.integer('num').notNullable()
       table.integer('type_id').unsigned().references('id').inTable('types').onDelete('CASCADE')
       table.integer('branch_order').notNullable()
       table.string('guarantee').notNullable()
       table.integer('pending_days').notNullable()
       table.integer('status_id').unsigned().references('id').inTable('statuses').onDelete('CASCADE')
-      table.integer('orders_data_id').unsigned().references('id').inTable('orders_data')
+      table.integer('order_data_id').unsigned().references('id').inTable('orders_data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

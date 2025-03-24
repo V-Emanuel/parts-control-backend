@@ -3,9 +3,9 @@ import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Type from './type.js'
 import Status from './status.js'
-import OrderDatum from './order_datum.js'
+import OrdersDatum from './orders_datum.js'
 
-export default class OrderControl extends BaseModel {
+export default class OrdersControl extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -39,10 +39,10 @@ export default class OrderControl extends BaseModel {
   declare status: BelongsTo<typeof Status>
 
   @column({ isPrimary: true })
-  declare order_data_id: number
+  declare orderDataId: number
 
-  @belongsTo(() => OrderDatum)
-  declare order_data: BelongsTo<typeof OrderDatum>
+  @belongsTo(() => OrdersDatum)
+  declare orderData: BelongsTo<typeof OrdersDatum>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

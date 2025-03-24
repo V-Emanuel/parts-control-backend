@@ -15,7 +15,7 @@ import TypesController from '#controllers/types_controller'
 import StatusesController from '#controllers/statuses_controller'
 import CompaniesController from '#controllers/companies_controller'
 import UserCompaniesController from '#controllers/user_companies_controller'
-import OrdersController from '#controllers/orders_controller'
+// import OrdersController from '#controllers/orders_controller'
 
 router.get('/', async () => {
   return {
@@ -76,10 +76,10 @@ router
   .use(middleware.auth())
   .use(middleware.admin())
 
-router.get('/orders', [OrdersController, 'index']).use(middleware.auth())
-router.get('/orders/:id', [OrdersController, 'edit']).use(middleware.auth())
-router.put('/orders/:id', [OrdersController, 'update']).use(middleware.auth())
-router
-  .delete('/orders/:id', [OrdersController, 'destroy'])
-  .use(middleware.auth())
-  .use(middleware.admin())
+// router.get('/orders', [OrdersController, 'index']).use(middleware.auth())
+// router.get('/orders/:id', [OrdersController, 'edit']).use(middleware.auth())
+// router.put('/orders/:id', [OrdersController, 'update']).use(middleware.auth())
+// router
+//   .delete('/orders/:id', [OrdersController, 'destroy'])
+//   .use(middleware.auth())
+//   .use(middleware.admin())

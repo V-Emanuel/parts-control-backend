@@ -11,11 +11,11 @@ export default class UserCategory extends BaseModel {
   @column({ isPrimary: true })
   declare userId: number
 
-  @column({ isPrimary: true })
-  declare categoryId: number
-
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
+
+  @column({ isPrimary: true })
+  declare categoryId: number
 
   @belongsTo(() => Category)
   declare category: BelongsTo<typeof Category>

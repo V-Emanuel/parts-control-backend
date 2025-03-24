@@ -14,7 +14,7 @@ export default class extends BaseSchema {
         .inTable('companies')
         .onDelete('CASCADE')
       table.integer('os_orc').notNullable()
-      table.date('order_date').notNullable()
+      table.datetime('order_date').notNullable()
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.string('client').notNullable()
       table.string('model').notNullable()

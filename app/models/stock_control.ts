@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import OrderDatum from './order_datum.js'
+import OrdersDatum from './orders_datum.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class StockControl extends BaseModel {
@@ -32,10 +32,10 @@ export default class StockControl extends BaseModel {
   declare daysStock: number
 
   @column({ isPrimary: true })
-  declare order_data_id: number
+  declare orderDataId: number
 
-  @belongsTo(() => OrderDatum)
-  declare order_data: BelongsTo<typeof OrderDatum>
+  @belongsTo(() => OrdersDatum)
+  declare orderData: BelongsTo<typeof OrdersDatum>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

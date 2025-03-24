@@ -4,7 +4,7 @@ import Company from './company.js'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
-export default class OrderDatum extends BaseModel {
+export default class OrdersDatum extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
