@@ -15,6 +15,7 @@ import TypesController from '#controllers/types_controller'
 import StatusesController from '#controllers/statuses_controller'
 import CompaniesController from '#controllers/companies_controller'
 import UserCompaniesController from '#controllers/user_companies_controller'
+import OrderDataController from '#controllers/orders/order_data_controller'
 // import OrdersController from '#controllers/orders_controller'
 
 router.get('/', async () => {
@@ -83,3 +84,5 @@ router
 //   .delete('/orders/:id', [OrdersController, 'destroy'])
 //   .use(middleware.auth())
 //   .use(middleware.admin())
+
+router.get('/orderdata', [OrderDataController, 'index']).use(middleware.auth())
