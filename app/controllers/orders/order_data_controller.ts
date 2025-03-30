@@ -1,7 +1,6 @@
-import Category from '#models/category'
 import OrdersDatum from '#models/orders_datum'
-import UserCategory from '#models/user_category'
 import UserCompany from '#models/user_company'
+import UserService from '#services/UserService'
 import { OrderDataValidator } from '#validators/order_datum'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -52,28 +51,13 @@ export default class OrderDataController {
           description: orderValidated.description,
           quantity: orderValidated.quantity,
         })
-        return response.status(201).json(orderData)
+        return orderData
       }
 
-      const userCategories = await UserCategory.query().where('userId', userId)
-      const categoriesId = userCategories.map((category) => category.categoryId)
+      const isConsultor = await UserService.userHasCategory(user.id, 'Consultor Técnico')
+      const hasCompany = await UserService.userHasCompany(user.id, orderValidated.company_id)
 
-      if (categoriesId.length === 0) {
-        return response.status(403).json({
-          error: 'Unauthorized',
-          message: 'Cargo do Usuário não permite criação desse dado',
-        })
-      }
-
-      const categoryName = await Category.query()
-        .whereIn('id', categoriesId)
-        .andWhere('name', 'Consultor Técnico')
-        .first()
-
-      const userCompanies = await UserCompany.query().where('userId', userId)
-      const companyIds = userCompanies.map((company) => company.companyId)
-
-      if (categoryName && companyIds.includes(orderValidated.company_id)) {
+      if (isConsultor && hasCompany) {
         const orderData = OrdersDatum.create({
           companyId: orderValidated.company_id,
           osOrc: orderValidated.os_orc,
@@ -84,7 +68,7 @@ export default class OrderDataController {
           description: orderValidated.description,
           quantity: orderValidated.quantity,
         })
-        return response.status(201).json(orderData)
+        return orderData
       }
 
       return response.status(403).json({
