@@ -58,7 +58,7 @@ export default class OrderDataController {
       const userCategories = await UserCategory.query().where('userId', userId)
       const categoriesId = userCategories.map((category) => category.categoryId)
 
-      if (categoriesId.length == 0) {
+      if (categoriesId.length === 0) {
         return response.status(403).json({
           error: 'Unauthorized',
           message: 'Cargo do Usuário não permite criação desse dado',
