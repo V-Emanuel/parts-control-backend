@@ -86,3 +86,4 @@ router
 //   .use(middleware.admin())
 
 router.get('/orderdata', [OrderDataController, 'index']).use(middleware.auth())
+router.post('/orderdata', [OrderDataController, 'store']).use(middleware.auth())
