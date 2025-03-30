@@ -35,4 +35,13 @@ export default class AuthController {
       user: auth.user,
     }
   }
+
+  async index({ response }: HttpContext) {
+    try {
+      const users = await User.query().where('admin', 0)
+      return users
+    } catch (error) {
+      return response.status(500).json({ error: 'Erro interno do servidor' })
+    }
+  }
 }

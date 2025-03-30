@@ -4,8 +4,8 @@ import Type from '#models/type'
 export default class extends BaseSeeder {
   async run() {
     await Type.createMany([
-      { name: 'Orçamento' },
-      { name: 'Ordem de Serviço' },
+      { name: 'UNID. PARADA' },
+      { name: 'NORMAL' },
       { name: 'Pedido Especial' },
     ])
   }

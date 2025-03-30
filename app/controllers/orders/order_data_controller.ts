@@ -33,7 +33,6 @@ export default class OrderDataController {
   }
 
   async store({ auth, request, response }: HttpContext) {
-    console.log('chegou chegou chegou')
     try {
       const body = await request.all()
       const user = await auth.authenticate()
@@ -53,7 +52,7 @@ export default class OrderDataController {
           description: orderValidated.description,
           quantity: orderValidated.quantity,
         })
-        return orderData
+        return response.status(201).json(orderData)
       }
 
       const userCategories = await UserCategory.query().where('userId', userId)
@@ -85,7 +84,7 @@ export default class OrderDataController {
           description: orderValidated.description,
           quantity: orderValidated.quantity,
         })
-        return orderData
+        return response.status(201).json(orderData)
       }
 
       return response.status(403).json({

@@ -11,7 +11,6 @@ export default class extends BaseSchema {
       table.integer('type_id').unsigned().references('id').inTable('types').onDelete('CASCADE')
       table.integer('branch_order').notNullable()
       table.string('guarantee').notNullable()
-      table.integer('pending_days').notNullable()
       table.integer('status_id').unsigned().references('id').inTable('statuses').onDelete('CASCADE')
       table.integer('order_data_id').unsigned().references('id').inTable('orders_data')
       table.timestamp('created_at')
