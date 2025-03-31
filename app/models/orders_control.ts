@@ -29,9 +29,6 @@ export default class OrdersControl extends BaseModel {
   @column()
   declare guarantee: string
 
-  @column()
-  declare pendingDays: number
-
   @column({ isPrimary: true })
   declare statusId: number
 

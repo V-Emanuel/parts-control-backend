@@ -25,12 +25,6 @@ export default class StockControl extends BaseModel {
   })
   declare entryDate: DateTime
 
-  @column()
-  declare daysTt: number
-
-  @column()
-  declare daysStock: number
-
   @column({ isPrimary: true })
   declare orderDataId: number
 

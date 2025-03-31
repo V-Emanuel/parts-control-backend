@@ -1,13 +1,13 @@
-import OrdersControl from '#models/orders_control'
+import StockControl from '#models/stock_control'
 import UserService from '#services/UserService'
-import { OrderControlValidator } from '#validators/onder_control'
+import { StockControlValidator } from '#validators/stock_control'
 import type { HttpContext } from '@adonisjs/core/http'
 
-export default class OrdersControlsController {
+export default class StockControlsController {
   async index({ response }: HttpContext) {
     try {
-      const ordersControl = await OrdersControl.all()
-      return ordersControl
+      const stockControls = await StockControl.all()
+      return stockControls
     } catch (error) {
       return response.status(500).json({ error: 'Erro interno no servidor.' })
     }
@@ -15,16 +15,16 @@ export default class OrdersControlsController {
 
   async store({ auth, request, response }: HttpContext) {
     try {
-      const body = await request.all()
+      const body = request.all()
       const user = await auth.authenticate()
 
-      const orderControlValidated = await OrderControlValidator.validate(body)
+      const stockControlValidated = await StockControlValidator.validate(body)
 
-      const orderControlExists = await OrdersControl.query()
-        .where('order_data_id', orderControlValidated.order_data_id)
+      const stockControlExists = await StockControl.query()
+        .where('order_data_id', stockControlValidated.order_data_id)
         .first()
 
-      if (orderControlExists) {
+      if (stockControlExists) {
         return response.status(422).json({
           error: 'Unprocessable Entity',
           message: 'Dado já existe',
@@ -32,16 +32,17 @@ export default class OrdersControlsController {
       }
 
       if (user.admin) {
-        const orderControl = await OrdersControl.create(orderControlValidated)
-        return orderControl
+        const stockControl = await StockControl.create(stockControlValidated)
+        return stockControl
       }
 
       const isEstoquista = await UserService.userHasCategory(user.id, 'Estoquista')
 
       if (isEstoquista) {
-        const orderControl = await OrdersControl.create(orderControlValidated)
-        return orderControl
+        const stockControl = await StockControl.create(stockControlValidated)
+        return stockControl
       }
+
       return response.status(403).json({
         error: 'Unauthorized',
         message: 'Cargo do Usuário não permite criação desse dado',
