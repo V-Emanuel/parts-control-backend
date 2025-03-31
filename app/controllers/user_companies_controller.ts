@@ -5,8 +5,8 @@ import { HttpContext } from '@adonisjs/core/http'
 export default class UserCompaniesController {
   async index({ auth, response }: HttpContext) {
     const user = await auth.authenticate()
-
-    if (user.admin === true) {
+    console.log('admin?', user.admin)
+    if (user.admin) {
       const companies = await Company.all()
       return response.json(companies)
     }
@@ -18,9 +18,9 @@ export default class UserCompaniesController {
   }
 
   async store({ request, auth, response }: HttpContext) {
-    const admin = await auth.authenticate()
+    const user = await auth.authenticate()
 
-    if (admin.admin !== true) {
+    if (!user.admin) {
       return response.unauthorized({ message: 'Apenas administradores podem atribuir acessos.' })
     }
 
@@ -32,9 +32,9 @@ export default class UserCompaniesController {
   }
 
   async destroy({ params, auth, response }: HttpContext) {
-    const admin = await auth.authenticate()
+    const user = await auth.authenticate()
 
-    if (admin.admin !== true) {
+    if (!user.admin) {
       return response.unauthorized({ message: 'Apenas administradores podem remover acessos.' })
     }
 

@@ -11,8 +11,6 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
         orderDataId: 1,
       },
       {
@@ -20,8 +18,7 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
+
         orderDataId: 2,
       },
       {
@@ -29,8 +26,6 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
         orderDataId: 3,
       },
       {
@@ -38,8 +33,6 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
         orderDataId: 4,
       },
       {
@@ -47,8 +40,6 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
         orderDataId: 5,
       },
       {
@@ -56,8 +47,6 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
         orderDataId: 6,
       },
       {
@@ -65,8 +54,6 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
         orderDataId: 7,
       },
       {
@@ -74,8 +61,6 @@ export default class extends BaseSeeder {
         nfDate: DateTime.fromJSDate(faker.date.past()),
         accuracyDate: DateTime.fromJSDate(faker.date.past()),
         entryDate: DateTime.fromJSDate(faker.date.past()),
-        daysTt: faker.number.int({ max: 20 }),
-        daysStock: faker.number.int({ max: 20 }),
         orderDataId: 8,
       },
     ])

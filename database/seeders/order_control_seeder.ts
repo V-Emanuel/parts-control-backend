@@ -12,7 +12,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 1,
       },
@@ -22,7 +22,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 2,
       },
@@ -32,7 +32,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 3,
       },
@@ -42,7 +42,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 5,
       },
@@ -52,7 +52,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 8,
       },
@@ -62,7 +62,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 9,
       },
@@ -72,7 +72,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 10,
       },
@@ -82,7 +82,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 12,
       },
@@ -92,7 +92,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 13,
       },
@@ -102,7 +102,7 @@ export default class extends BaseSeeder {
         typeId: faker.number.int({ min: 1, max: 3 }),
         branchOrder: faker.number.int({ min: 200, max: 300 }),
         guarantee: faker.helpers.arrayElement(['SIM', 'NÃO']),
-        pendingDays: faker.number.int({ min: 1, max: 20 }),
+
         statusId: faker.number.int({ min: 1, max: 3 }),
         orderDataId: 15,
       },

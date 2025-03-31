@@ -19,7 +19,7 @@ export default class extends BaseSeeder {
       {
         fullName: 'joao',
         email: 'joao@example.com',
-        password: 'joao123',
+        password: 'joaoo123',
         admin: true,
       },
       {

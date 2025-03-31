@@ -16,10 +16,11 @@ import StatusesController from '#controllers/statuses_controller'
 import CompaniesController from '#controllers/companies_controller'
 import UserCompaniesController from '#controllers/user_companies_controller'
 import OrderDataController from '#controllers/orders/order_data_controller'
+import OrdersControlsController from '#controllers/orders/order_controls_controller'
 
 router.get('/', async () => {
   return {
-    hello: 'world',
+    hello: 'connected',
   }
 })
 
@@ -53,6 +54,8 @@ router
     router.get('/statuses', [StatusesController, 'index'])
     router.get('statuses/:id', [StatusesController, 'show'])
 
+    router.get('/user-companies', [UserCompaniesController, 'index'])
+
     router
       .group(() => {
         router.post('/types', [TypesController, 'store'])
@@ -63,19 +66,14 @@ router
         router.get('/company/:id', [CompaniesController, 'show'])
         router.post('/company', [CompaniesController, 'store'])
         router.delete('/company/:id', [CompaniesController, 'destroy'])
+        router.post('/user-companies', [UserCompaniesController, 'store'])
+        router.delete('/user-companies/:id', [UserCompaniesController, 'destroy'])
       })
       .use(middleware.admin())
   })
   .use(middleware.auth())
 
-router
-  .group(() => {
-    router.post('/user-companies', [UserCompaniesController, 'store'])
-    router.delete('/user-companies/:id', [UserCompaniesController, 'destroy'])
-    router.get('/user-companies', [UserCompaniesController, 'index'])
-  })
-  .use(middleware.auth())
-  .use(middleware.admin())
-
 router.get('/orderdata', [OrderDataController, 'index']).use(middleware.auth())
 router.post('/orderdata', [OrderDataController, 'store']).use(middleware.auth())
+
+router.get('/ordercontrol', [OrdersControlsController, 'index']).use(middleware.auth())
