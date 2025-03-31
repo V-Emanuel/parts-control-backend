@@ -17,6 +17,8 @@ import CompaniesController from '#controllers/companies_controller'
 import UserCompaniesController from '#controllers/user_companies_controller'
 import OrderDataController from '#controllers/orders/order_data_controller'
 import OrdersControlsController from '#controllers/orders/order_controls_controller'
+import StockControlsController from '#controllers/orders/stock_controls_controller'
+import ClientRelationshipsController from '#controllers/orders/client_relationships_controller'
 
 router.get('/', async () => {
   return {
@@ -53,8 +55,16 @@ router
     router.get('types/:id', [TypesController, 'show'])
     router.get('/statuses', [StatusesController, 'index'])
     router.get('statuses/:id', [StatusesController, 'show'])
-
     router.get('/user-companies', [UserCompaniesController, 'index'])
+
+    router.get('/orderdata', [OrderDataController, 'index'])
+    router.post('/orderdata', [OrderDataController, 'store'])
+    router.get('/ordercontrol', [OrdersControlsController, 'index'])
+    router.post('ordercontrol', [OrdersControlsController, 'store'])
+    router.get('/stockcontrol', [StockControlsController, 'index'])
+    router.post('/stockcontrol', [StockControlsController, 'store'])
+    router.get('/clientrelationship', [ClientRelationshipsController, 'index'])
+    router.post('clientrelationship', [ClientRelationshipsController, 'store'])
 
     router
       .group(() => {
@@ -72,8 +82,3 @@ router
       .use(middleware.admin())
   })
   .use(middleware.auth())
-
-router.get('/orderdata', [OrderDataController, 'index']).use(middleware.auth())
-router.post('/orderdata', [OrderDataController, 'store']).use(middleware.auth())
-
-router.get('/ordercontrol', [OrdersControlsController, 'index']).use(middleware.auth())

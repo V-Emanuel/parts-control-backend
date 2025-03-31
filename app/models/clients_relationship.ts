@@ -33,7 +33,7 @@ export default class ClientsRelationship extends BaseModel {
   declare applicationDate: DateTime
 
   @column()
-  declare observations: string
+  declare observations: string | null
 
   @column({ isPrimary: true })
   declare orderDataId: number
