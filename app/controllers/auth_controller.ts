@@ -19,6 +19,7 @@ export default class AuthController {
     return {
       data: token,
       fullName: user.fullName,
+      email: user.email,
     }
   }
 
@@ -39,6 +40,16 @@ export default class AuthController {
   async index({ response }: HttpContext) {
     try {
       const users = await User.query().where('admin', 0)
+      return users
+    } catch (error) {
+      return response.status(500).json({ error: 'Erro interno do servidor' })
+    }
+  }
+
+  async usersnames({ response }: HttpContext) {
+    try {
+      const users = await User.query().select('id', 'fullname')
+
       return users
     } catch (error) {
       return response.status(500).json({ error: 'Erro interno do servidor' })

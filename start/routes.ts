@@ -39,6 +39,7 @@ router
   .use(middleware.auth())
   .use(middleware.admin())
 router.get('/users', [AuthController, 'index']).use(middleware.auth()).use(middleware.admin())
+router.get('/usersnames', [AuthController, 'usersnames']).use(middleware.auth())
 
 router.get('/validate-token', async ({ response, auth }: HttpContext) => {
   try {
@@ -64,7 +65,7 @@ router
     router.get('/stockcontrol', [StockControlsController, 'index'])
     router.post('/stockcontrol', [StockControlsController, 'store'])
     router.get('/clientrelationship', [ClientRelationshipsController, 'index'])
-    router.post('clientrelationship', [ClientRelationshipsController, 'store'])
+    router.post('/clientrelationship', [ClientRelationshipsController, 'store'])
 
     router
       .group(() => {
