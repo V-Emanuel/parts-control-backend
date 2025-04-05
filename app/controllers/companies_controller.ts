@@ -2,10 +2,25 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 import Company from '#models/company'
 import { CompanyValidator } from '#validators/company'
+import UserCompany from '#models/user_company'
 
 export default class CompaniesController {
-  async index({}: HttpContext) {
-    const companies = await Company.all()
+  async index({ auth, response }: HttpContext) {
+    const user = await auth.authenticate()
+
+    if (user.admin) {
+      const companies = await Company.all()
+      return companies
+    }
+
+    const userCompanies = UserCompany.query().where('userId', user.id).select('companyuId')
+    const companiesIds = (await userCompanies).map((company) => company.companyId)
+
+    if (companiesIds.length === 0) {
+      return response.json([])
+    }
+
+    const companies = await Company.query().whereIn('companyId', companiesIds)
     return companies
   }
 

@@ -39,7 +39,6 @@ router
   .use(middleware.auth())
   .use(middleware.admin())
 router.get('/users', [AuthController, 'index']).use(middleware.auth()).use(middleware.admin())
-router.get('/usersnames', [AuthController, 'usersnames']).use(middleware.auth())
 
 router.get('/validate-token', async ({ response, auth }: HttpContext) => {
   try {
@@ -57,6 +56,7 @@ router
     router.get('/statuses', [StatusesController, 'index'])
     router.get('statuses/:id', [StatusesController, 'show'])
     router.get('/user-companies', [UserCompaniesController, 'index'])
+    router.get('/usersnames', [AuthController, 'usersnames'])
 
     router.get('/orderdata', [OrderDataController, 'index'])
     router.post('/orderdata', [OrderDataController, 'store'])
@@ -66,6 +66,7 @@ router
     router.post('/stockcontrol', [StockControlsController, 'store'])
     router.get('/clientrelationship', [ClientRelationshipsController, 'index'])
     router.post('/clientrelationship', [ClientRelationshipsController, 'store'])
+    router.get('/company', [CompaniesController, 'index'])
 
     router
       .group(() => {
@@ -73,7 +74,6 @@ router
         router.delete('/types/:id', [TypesController, 'destroy'])
         router.post('/statuses', [StatusesController, 'store'])
         router.delete('/statuses/:id', [StatusesController, 'destroy'])
-        router.get('/company', [CompaniesController, 'index'])
         router.get('/company/:id', [CompaniesController, 'show'])
         router.post('/company', [CompaniesController, 'store'])
         router.delete('/company/:id', [CompaniesController, 'destroy'])
