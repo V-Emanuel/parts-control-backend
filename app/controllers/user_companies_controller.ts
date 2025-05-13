@@ -5,7 +5,7 @@ import { HttpContext } from '@adonisjs/core/http'
 export default class UserCompaniesController {
   async index({ auth, response }: HttpContext) {
     const user = await auth.authenticate()
-    console.log('admin?', user.admin)
+
     if (user.admin) {
       const companies = await Company.all()
       return response.json(companies)

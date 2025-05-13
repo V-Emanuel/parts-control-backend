@@ -49,7 +49,6 @@ export default class AuthController {
   async usersnames({ response }: HttpContext) {
     try {
       const users = await User.all()
-      console.log('jorge', users)
       return users
     } catch (error) {
       return response.status(500).json({ error: 'Erro interno do servidor' })

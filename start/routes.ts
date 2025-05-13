@@ -19,6 +19,7 @@ import OrderDataController from '#controllers/orders/order_data_controller'
 import OrdersControlsController from '#controllers/orders/order_controls_controller'
 import StockControlsController from '#controllers/orders/stock_controls_controller'
 import ClientRelationshipsController from '#controllers/orders/client_relationships_controller'
+import CategoriesController from '#controllers/categories_controller'
 
 router.get('/', async () => {
   return {
@@ -53,30 +54,44 @@ router
   .group(() => {
     router.get('/types', [TypesController, 'index'])
     router.get('types/:id', [TypesController, 'show'])
+
     router.get('/statuses', [StatusesController, 'index'])
     router.get('statuses/:id', [StatusesController, 'show'])
+
     router.get('/user-companies', [UserCompaniesController, 'index'])
     router.get('/usersnames', [AuthController, 'usersnames'])
 
     router.get('/orderdata', [OrderDataController, 'index'])
     router.post('/orderdata', [OrderDataController, 'store'])
+
     router.get('/ordercontrol', [OrdersControlsController, 'index'])
     router.post('ordercontrol', [OrdersControlsController, 'store'])
+
     router.get('/stockcontrol', [StockControlsController, 'index'])
     router.post('/stockcontrol', [StockControlsController, 'store'])
+
     router.get('/clientrelationship', [ClientRelationshipsController, 'index'])
     router.post('/clientrelationship', [ClientRelationshipsController, 'store'])
+
     router.get('/company', [CompaniesController, 'index'])
 
     router
       .group(() => {
+        router.get('/category', [CategoriesController, 'index'])
+        router.get('/category/:id', [CategoriesController, 'show'])
+        router.post('/category', [CategoriesController, 'store'])
+        router.delete('/category/:id', [CategoriesController, 'destroy'])
+
         router.post('/types', [TypesController, 'store'])
         router.delete('/types/:id', [TypesController, 'destroy'])
+
         router.post('/statuses', [StatusesController, 'store'])
         router.delete('/statuses/:id', [StatusesController, 'destroy'])
+
         router.get('/company/:id', [CompaniesController, 'show'])
         router.post('/company', [CompaniesController, 'store'])
         router.delete('/company/:id', [CompaniesController, 'destroy'])
+
         router.post('/user-companies', [UserCompaniesController, 'store'])
         router.delete('/user-companies/:id', [UserCompaniesController, 'destroy'])
       })

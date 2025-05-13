@@ -13,7 +13,7 @@ export default class CompaniesController {
       return companies
     }
 
-    const userCompanies = UserCompany.query().where('userId', user.id).select('companyuId')
+    const userCompanies = UserCompany.query().where('userId', user.id).select('companyId')
     const companiesIds = (await userCompanies).map((company) => company.companyId)
 
     if (companiesIds.length === 0) {
