@@ -22,11 +22,11 @@ export default class TypesController {
     return type
   }
 
-  async destroy({ request }: HttpContext) {
-    const typeId = request.param('id')
-    const type = await Type.findOrFail(typeId)
-    await type.delete()
+  // async destroy({ request }: HttpContext) {
+  //   const typeId = request.param('id')
+  //   const type = await Type.findOrFail(typeId)
+  //   await type.delete()
 
-    return type
-  }
+  //   return type
+  // }
 }

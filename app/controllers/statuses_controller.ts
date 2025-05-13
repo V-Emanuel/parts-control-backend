@@ -22,11 +22,11 @@ export default class StatusesController {
     return status
   }
 
-  async destroy({ request }: HttpContext) {
-    const statusId = request.param('id')
-    const status = await Status.findOrFail(statusId)
-    await status.delete()
+  // async destroy({ request }: HttpContext) {
+  //   const statusId = request.param('id')
+  //   const status = await Status.findOrFail(statusId)
+  //   await status.delete()
 
-    return status
-  }
+  //   return status
+  // }
 }

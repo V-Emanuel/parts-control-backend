@@ -22,10 +22,10 @@ export default class CategoriesController {
     return category
   }
 
-  async destroy({ request }: HttpContext) {
-    const categoryId = request.param('id')
-    const category = await Category.findOrFail(categoryId)
-    await category.delete()
-    return category
-  }
+  // async destroy({ request }: HttpContext) {
+  //   const categoryId = request.param('id')
+  //   const category = await Category.findOrFail(categoryId)
+  //   await category.delete()
+  //   return category
+  // }
 }

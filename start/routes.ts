@@ -65,7 +65,7 @@ router
     router.post('/orderdata', [OrderDataController, 'store'])
 
     router.get('/ordercontrol', [OrdersControlsController, 'index'])
-    router.post('ordercontrol', [OrdersControlsController, 'store'])
+    router.post('/ordercontrol', [OrdersControlsController, 'store'])
 
     router.get('/stockcontrol', [StockControlsController, 'index'])
     router.post('/stockcontrol', [StockControlsController, 'store'])
@@ -80,17 +80,17 @@ router
         router.get('/category', [CategoriesController, 'index'])
         router.get('/category/:id', [CategoriesController, 'show'])
         router.post('/category', [CategoriesController, 'store'])
-        router.delete('/category/:id', [CategoriesController, 'destroy'])
+        // router.delete('/category/:id', [CategoriesController, 'destroy'])
 
         router.post('/types', [TypesController, 'store'])
-        router.delete('/types/:id', [TypesController, 'destroy'])
+        // router.delete('/types/:id', [TypesController, 'destroy'])
 
         router.post('/statuses', [StatusesController, 'store'])
-        router.delete('/statuses/:id', [StatusesController, 'destroy'])
+        // router.delete('/statuses/:id', [StatusesController, 'destroy'])
 
         router.get('/company/:id', [CompaniesController, 'show'])
         router.post('/company', [CompaniesController, 'store'])
-        router.delete('/company/:id', [CompaniesController, 'destroy'])
+        // router.delete('/company/:id', [CompaniesController, 'destroy'])
 
         router.post('/user-companies', [UserCompaniesController, 'store'])
         router.delete('/user-companies/:id', [UserCompaniesController, 'destroy'])

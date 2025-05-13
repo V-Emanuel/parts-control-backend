@@ -38,11 +38,11 @@ export default class CompaniesController {
     return company
   }
 
-  async destroy({ request }: HttpContext) {
-    const companyId = request.param('id')
-    const company = await Company.findOrFail(companyId)
-    await company.delete()
+  // async destroy({ request }: HttpContext) {
+  //   const companyId = request.param('id')
+  //   const company = await Company.findOrFail(companyId)
+  //   await company.delete()
 
-    return company
-  }
+  //   return company
+  // }
 }

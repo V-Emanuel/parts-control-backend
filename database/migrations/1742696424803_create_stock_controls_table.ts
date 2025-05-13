@@ -7,8 +7,8 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('nf').notNullable()
-      table.datetime('nf_date')
-      table.datetime('accuracy_date')
+      table.datetime('nf_date').notNullable()
+      table.datetime('accuracy_date').nullable()
       table.datetime('entry_date').nullable()
       table.integer('order_data_id').unsigned().references('id').inTable('orders_data')
       table.timestamp('created_at')

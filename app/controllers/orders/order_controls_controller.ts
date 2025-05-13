@@ -15,10 +15,18 @@ export default class OrdersControlsController {
 
   async store({ auth, request, response }: HttpContext) {
     try {
+      console.log('entrou aq')
       const body = await request.all()
+
+      console.log(body)
+
       const user = await auth.authenticate()
 
+      console.log('passou da auth')
+
       const orderControlValidated = await OrderControlValidator.validate(body)
+
+      console.log('validou')
 
       const orderControlExists = await OrdersControl.query()
         .where('order_data_id', orderControlValidated.order_data_id)
