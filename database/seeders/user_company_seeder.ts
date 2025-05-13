@@ -12,6 +12,12 @@ export default class extends BaseSeeder {
       { userId: 3, companyId: 3 },
       { userId: 4, companyId: 3 },
       { userId: 4, companyId: 4 },
+      { userId: 5, companyId: 1 },
+      { userId: 5, companyId: 2 },
+      { userId: 6, companyId: 3 },
+      { userId: 7, companyId: 1 },
+      { userId: 7, companyId: 3 },
+      { userId: 8, companyId: 3 },
     ])
   }
 }

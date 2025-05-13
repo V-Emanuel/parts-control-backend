@@ -7,6 +7,10 @@ export default class extends BaseSeeder {
       { userId: 2, categoryId: 1 },
       { userId: 2, categoryId: 2 },
       { userId: 4, categoryId: 3 },
+      { userId: 6, categoryId: 1 },
+      { userId: 7, categoryId: 1 },
+      { userId: 7, categoryId: 2 },
+      { userId: 7, categoryId: 3 },
     ])
   }
 }
