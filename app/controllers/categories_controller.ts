@@ -16,12 +16,6 @@ export default class CategoriesController {
     return category
   }
 
-  async show({ request }: HttpContext) {
-    const categoryId = request.param('id')
-    const category = await Category.findOrFail(categoryId)
-    return category
-  }
-
   // async destroy({ request }: HttpContext) {
   //   const categoryId = request.param('id')
   //   const category = await Category.findOrFail(categoryId)

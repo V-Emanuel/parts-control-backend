@@ -20,6 +20,7 @@ import OrdersControlsController from '#controllers/orders/order_controls_control
 import StockControlsController from '#controllers/orders/stock_controls_controller'
 import ClientRelationshipsController from '#controllers/orders/client_relationships_controller'
 import CategoriesController from '#controllers/categories_controller'
+import UserCategoriesController from '#controllers/user_categories_controller'
 
 router.get('/', async () => {
   return {
@@ -59,6 +60,7 @@ router
     router.get('statuses/:id', [StatusesController, 'show'])
 
     router.get('/user-companies', [UserCompaniesController, 'index'])
+    router.get('/user-categories', [UserCategoriesController, 'index'])
     router.get('/usersnames', [AuthController, 'usersnames'])
 
     router.get('/orderdata', [OrderDataController, 'index'])
@@ -78,7 +80,6 @@ router
     router
       .group(() => {
         router.get('/category', [CategoriesController, 'index'])
-        router.get('/category/:id', [CategoriesController, 'show'])
         router.post('/category', [CategoriesController, 'store'])
         // router.delete('/category/:id', [CategoriesController, 'destroy'])
 
@@ -94,6 +95,8 @@ router
 
         router.post('/user-companies', [UserCompaniesController, 'store'])
         router.delete('/user-companies/:id', [UserCompaniesController, 'destroy'])
+
+        router.post('/user-categories', [UserCategoriesController, 'store'])
       })
       .use(middleware.admin())
   })
