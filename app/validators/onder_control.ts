@@ -8,7 +8,7 @@ export const OrderControlValidator = vine.compile(
     type_id: vine.number().positive(),
     branch_order: vine.number().positive(),
     guarantee: vine.enum(['SIM', 'NÃO']),
-    status_id: vine.number().positive(),
+    status_id: vine.number().positive().nullable(),
     order_data_id: vine.number().positive(),
   })
 )
