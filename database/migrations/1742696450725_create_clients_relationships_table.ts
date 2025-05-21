@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.datetime('first_contact').nullable()
+      table.datetime('first_contact').notNullable()
       table.datetime('second_contact').nullable()
       table.datetime('third_contact').nullable()
       table.datetime('agenda_date').nullable()

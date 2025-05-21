@@ -21,6 +21,7 @@ import StockControlsController from '#controllers/orders/stock_controls_controll
 import ClientRelationshipsController from '#controllers/orders/client_relationships_controller'
 import CategoriesController from '#controllers/categories_controller'
 import UserCategoriesController from '#controllers/user_categories_controller'
+import UsersController from '#controllers/users_controller'
 
 router.get('/', async () => {
   return {
@@ -40,7 +41,6 @@ router
   .as('auth.me')
   .use(middleware.auth())
   .use(middleware.admin())
-router.get('/users', [AuthController, 'index']).use(middleware.auth()).use(middleware.admin())
 
 router.get('/validate-token', async ({ response, auth }: HttpContext) => {
   try {
@@ -97,6 +97,8 @@ router
         router.delete('/user-companies/:id', [UserCompaniesController, 'destroy'])
 
         router.post('/user-categories', [UserCategoriesController, 'store'])
+
+        router.get('/users', [UsersController, 'index'])
       })
       .use(middleware.admin())
   })
