@@ -25,6 +25,7 @@ export default class AuthController {
       data: token,
       fullName: user.fullName,
       email: user.email,
+      admin: user.admin,
     }
   }
 
