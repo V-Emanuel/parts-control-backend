@@ -3,27 +3,24 @@ import { DateTime } from 'luxon'
 
 export const ClientRealtionshipValidator = vine.compile(
   vine.object({
-    first_contact: vine
-      .date()
-      .transform((date) => DateTime.fromJSDate(date))
-      .nullable(),
+    first_contact: vine.date().transform((date) => DateTime.fromJSDate(date)),
     second_contact: vine
       .date()
       .transform((date) => DateTime.fromJSDate(date))
-      .nullable(),
+      .optional(),
     third_contact: vine
       .date()
       .transform((date) => DateTime.fromJSDate(date))
-      .nullable(),
+      .optional(),
     agenda_date: vine
       .date()
       .transform((date) => DateTime.fromJSDate(date))
-      .nullable(),
+      .optional(),
     application_date: vine
       .date()
       .transform((date) => DateTime.fromJSDate(date))
-      .nullable(),
-    observations: vine.string().maxLength(300).nullable(),
+      .optional(),
+    observations: vine.string().maxLength(300).optional(),
     order_data_id: vine.number().positive(),
   })
 )

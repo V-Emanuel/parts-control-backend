@@ -5,59 +5,80 @@ export default class extends BaseSeeder {
   async run() {
     await User.createMany([
       {
-        fullName: 'Usuário Exemplo',
-        email: 'user@example.com',
-        password: 'senha123',
+        fullName: 'admin 1', //1
+        email: 'admin1@example.com',
+        password: 'admin123',
         admin: true,
         active: true,
       },
       {
-        fullName: 'victor',
+        fullName: 'admin 2', //2
         email: 'victor@example.com',
-        password: 'victor123',
-        admin: false,
-        active: true,
-      },
-      {
-        fullName: 'joao',
-        email: 'joao@example.com',
-        password: 'joaoo123',
+        password: 'admin123',
         admin: true,
         active: true,
       },
       {
-        fullName: 'maria',
-        email: 'maria@example.com',
-        password: 'maria123',
-        admin: false,
-        active: false,
-      },
-      {
-        fullName: 'pedro',
-        email: 'pedro@example.com',
-        password: 'maria123',
-        admin: false,
-        active: false,
-      },
-      {
-        fullName: 'paulo',
-        email: 'paulo@example.com',
-        password: 'maria123',
+        fullName: 'consultor', //3
+        email: 'consultor@example.com',
+        password: 'senha123',
         admin: false,
         active: true,
       },
       {
-        fullName: 'mateus',
+        fullName: 'estoquista', //4
         email: 'mateus@example.com',
         password: 'maria123',
         admin: false,
         active: true,
       },
       {
-        fullName: 'jorge',
-        email: 'jorge@example.com',
-        password: 'maria123',
+        fullName: 'crm', //5
+        email: 'crm@example.com',
+        password: 'senha123',
         admin: false,
+        active: true,
+      },
+      {
+        fullName: 'consultor estoquista', //6
+        email: 'consultor_estoquista@example.com',
+        password: 'senha123',
+        admin: false,
+        active: true,
+      },
+      {
+        fullName: 'estoquista crm', //7
+        email: 'estoquista_crm@example.com',
+        password: 'senha123',
+        admin: false,
+        active: true,
+      },
+      {
+        fullName: 'tudo mas n admin', //8
+        email: 'tudo@example.com',
+        password: 'senha123',
+        admin: false,
+        active: true,
+      },
+      {
+        fullName: 'desativado 1', //9
+        email: 'desativado1@example.com',
+        password: 'senha123',
+        admin: false,
+        active: false,
+      },
+      {
+        fullName: 'desativado 2', //10
+        email: 'desativado2@example.com',
+        password: 'senha123',
+        admin: false,
+        active: false,
+      },
+      {
+        fullName: 'admin desativado', //11
+        email: 'admin_desativado@example.com',
+        password: 'senha123',
+        admin: true,
         active: false,
       },
     ])

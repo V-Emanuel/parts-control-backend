@@ -13,6 +13,7 @@ export default class extends BaseSchema {
       table.datetime('application_date').nullable()
       table.text('observations').nullable()
       table.integer('order_data_id').unsigned().references('id').inTable('orders_data')
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

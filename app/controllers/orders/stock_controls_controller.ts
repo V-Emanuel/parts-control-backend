@@ -17,6 +17,7 @@ export default class StockControlsController {
     try {
       const body = request.all()
       const user = await auth.authenticate()
+      const userId = user.id
 
       const stockControlValidated = await StockControlValidator.validate(body)
 
@@ -32,14 +33,28 @@ export default class StockControlsController {
       }
 
       if (user.admin) {
-        const stockControl = await StockControl.create(stockControlValidated)
+        const stockControl = await StockControl.create({
+          nf: stockControlValidated.nf,
+          nfDate: stockControlValidated.nf_date,
+          accuracyDate: stockControlValidated.accuracy_date,
+          entryDate: stockControlValidated.entry_date,
+          orderDataId: stockControlValidated.order_data_id,
+          userId: userId,
+        })
         return stockControl
       }
 
       const isEstoquista = await UserService.userHasCategory(user.id, 'Estoquista')
 
       if (isEstoquista) {
-        const stockControl = await StockControl.create(stockControlValidated)
+        const stockControl = await StockControl.create({
+          nf: stockControlValidated.nf,
+          nfDate: stockControlValidated.nf_date,
+          accuracyDate: stockControlValidated.accuracy_date,
+          entryDate: stockControlValidated.entry_date,
+          orderDataId: stockControlValidated.order_data_id,
+          userId: userId,
+        })
         return stockControl
       }
 

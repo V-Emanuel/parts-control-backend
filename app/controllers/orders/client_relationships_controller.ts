@@ -17,6 +17,7 @@ export default class ClientRelationshipsController {
     try {
       const body = request.all()
       const user = await auth.authenticate()
+      const userId = user.id
 
       const clientReationshipValidated = await ClientRealtionshipValidator.validate(body)
 
@@ -31,14 +32,32 @@ export default class ClientRelationshipsController {
         })
       }
       if (user.admin) {
-        const clientReationship = await ClientsRelationship.create(clientReationshipValidated)
+        const clientReationship = await ClientsRelationship.create({
+          firstContact: clientReationshipValidated.first_contact,
+          secondContact: clientReationshipValidated.second_contact,
+          thirdContact: clientReationshipValidated.third_contact,
+          agendaDate: clientReationshipValidated.agenda_date,
+          applicationDate: clientReationshipValidated.application_date,
+          observations: clientReationshipValidated.observations,
+          orderDataId: clientReationshipValidated.order_data_id,
+          userId: userId,
+        })
         return clientReationship
       }
 
       const isCrm = await UserService.userHasCategory(user.id, 'CRM')
 
       if (isCrm) {
-        const clientReationship = await ClientsRelationship.create(clientReationshipValidated)
+        const clientReationship = await ClientsRelationship.create({
+          firstContact: clientReationshipValidated.first_contact,
+          secondContact: clientReationshipValidated.second_contact,
+          thirdContact: clientReationshipValidated.third_contact,
+          agendaDate: clientReationshipValidated.agenda_date,
+          applicationDate: clientReationshipValidated.application_date,
+          observations: clientReationshipValidated.observations,
+          orderDataId: clientReationshipValidated.order_data_id,
+          userId: userId,
+        })
         return clientReationship
       }
       return response.status(403).json({
