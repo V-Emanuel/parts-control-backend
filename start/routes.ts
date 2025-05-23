@@ -99,6 +99,7 @@ router
         router.post('/user-categories', [UserCategoriesController, 'store'])
 
         router.get('/users', [UsersController, 'index'])
+        router.get('/users/:id', [UsersController, 'show'])
       })
       .use(middleware.admin())
   })

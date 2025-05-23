@@ -11,7 +11,7 @@ export default class UsersController {
       return response.status(403).json({ error: 'Unauthorized' })
     }
 
-    const users = await User.all()
+    const users = await User.query().whereNot('id', user.id)
 
     const userCategories = await UserCategory.query().preload('category')
     const userCompanies = await UserCompany.query().preload('company')
@@ -29,5 +29,37 @@ export default class UsersController {
     })
 
     return response.json(result)
+  }
+
+  async show({ auth, response, params }: HttpContext) {
+    const requestingUser = await auth.authenticate()
+
+    if (!requestingUser.admin) {
+      return response.status(403).json({ error: 'Unauthorized' })
+    }
+
+    const { id } = params
+
+    const user = await User.find(id)
+
+    if (!user) {
+      return response.status(404).json({ error: 'User not found' })
+    }
+
+    const categories = await UserCategory.query()
+      .where('user_id', id)
+      .preload('category')
+      .then((result) => result.map((uc) => uc.category))
+
+    const companies = await UserCompany.query()
+      .where('user_id', id)
+      .preload('company')
+      .then((result) => result.map((uc) => uc.company))
+
+    return response.json({
+      ...user.serialize(),
+      categories,
+      companies,
+    })
   }
 }
