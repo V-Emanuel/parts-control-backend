@@ -100,6 +100,7 @@ router
 
         router.get('/users', [UsersController, 'index'])
         router.get('/users/:id', [UsersController, 'show'])
+        router.put('/users/:id', [UsersController, 'update'])
       })
       .use(middleware.admin())
   })

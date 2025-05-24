@@ -62,4 +62,62 @@ export default class UsersController {
       companies,
     })
   }
+
+  async update({ params, request, auth, response }: HttpContext) {
+    const loggedUser = auth.user
+    if (!loggedUser?.admin) {
+      return response.unauthorized({ error: 'Apenas administradores podem atualizar usuários' })
+    }
+
+    const userId = params.id
+    const user = await User.find(userId)
+    if (!user) {
+      return response.notFound({ error: 'Usuário não encontrado' })
+    }
+
+    const {
+      fullName,
+      email,
+      password,
+      admin,
+      companyIds = [],
+      categoryIds = [],
+    } = request.only(['fullName', 'email', 'password', 'admin', 'companyIds', 'categoryIds'])
+
+    user.fullName = fullName
+    user.email = email
+    user.admin = admin
+    if (password) {
+      user.password = password
+    }
+
+    await user.save()
+
+    if (!admin) {
+      await UserCompany.query().where('userId', user.id).delete()
+      const companiesToCreate = companyIds.map((companyId: number) => ({
+        userId: user.id,
+        companyId,
+      }))
+      await UserCompany.createMany(companiesToCreate)
+
+      await UserCategory.query().where('userId', user.id).delete()
+      const categoriesToCreate = categoryIds.map((categoryId: number) => ({
+        userId: user.id,
+        categoryId,
+      }))
+      await UserCategory.createMany(categoriesToCreate)
+    } else {
+      await UserCompany.query().where('userId', user.id).delete()
+      await UserCategory.query().where('userId', user.id).delete()
+    }
+
+    const updatedUser = await User.query()
+      .where('id', user.id)
+      .preload('userCompanies', (query) => query.preload('company'))
+      .preload('userCategories', (query) => query.preload('category'))
+      .firstOrFail()
+
+    return updatedUser
+  }
 }
