@@ -16,15 +16,10 @@ export default class OrdersControlsController {
   async store({ auth, request, response }: HttpContext) {
     try {
       const body = await request.all()
-      console.log('chegou nessa bomba', body)
       const user = await auth.authenticate()
       const userId = user.id
 
-      console.log('userId', userId)
-
       const orderControlValidated = await OrderControlValidator.validate(body)
-
-      console.log('passou do validate', orderControlValidated)
 
       const orderControlExists = await OrdersControl.query()
         .where('order_data_id', orderControlValidated.order_data_id)
@@ -37,10 +32,7 @@ export default class OrdersControlsController {
         })
       }
 
-      console.log('passou do dado já existe')
-
       if (user.admin) {
-        console.log('entrou no admin')
         const orderControl = await OrdersControl.create({
           shippingDate: orderControlValidated.shipping_date || null,
           num: orderControlValidated.num || null,
@@ -52,7 +44,6 @@ export default class OrdersControlsController {
           userId: userId,
         })
 
-        console.log('order', orderControl)
         return orderControl
       }
 
@@ -76,7 +67,6 @@ export default class OrdersControlsController {
         message: 'Cargo do Usuário não permite criação desse dado',
       })
     } catch (error) {
-      console.log('erro', error)
       return response.status(500).json({ error: 'Erro interno no servidor' })
     }
   }
@@ -85,6 +75,7 @@ export default class OrdersControlsController {
     try {
       const user = await auth.authenticate()
       const userId = user.id
+      const body = request.all()
 
       const id = Number(params.id)
       if (!id) {
@@ -95,7 +86,6 @@ export default class OrdersControlsController {
       }
 
       const orderControl = await OrdersControl.find(id)
-
       if (!orderControl) {
         return response.status(404).json({
           error: 'Not Found',
@@ -110,14 +100,14 @@ export default class OrdersControlsController {
         })
       }
 
-      const validatedData = await OrderControlValidator.validate(request.all())
+      const validatedData = await OrderControlValidator.validate(body)
 
-      orderControl.shippingDate = validatedData.shipping_date ?? orderControl.shippingDate
-      orderControl.num = validatedData.num ?? orderControl.num
+      orderControl.shippingDate = validatedData.shipping_date ?? null
+      orderControl.num = validatedData.num ?? null
       orderControl.typeId = validatedData.type_id
-      orderControl.branchOrder = validatedData.branch_order ?? orderControl.branchOrder
+      orderControl.branchOrder = validatedData.branch_order || null
       orderControl.guarantee = validatedData.guarantee
-      orderControl.statusId = validatedData.status_id ?? orderControl.statusId
+      orderControl.statusId = validatedData.status_id || null
       orderControl.orderDataId = validatedData.order_data_id
       orderControl.userId = userId
 
@@ -125,7 +115,6 @@ export default class OrdersControlsController {
 
       return orderControl
     } catch (error) {
-      console.error('atualizacoa', error)
       return response.status(500).json({
         error: 'Erro interno no servidor',
         message: error.message,
