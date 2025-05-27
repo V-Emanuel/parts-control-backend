@@ -18,13 +18,11 @@ export default class StockControl extends BaseModel {
 
   @column.date({
     serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
-    consume: (value) => (value ? DateTime.fromISO(value) : null),
   })
   declare accuracyDate: DateTime | null
 
   @column.date({
     serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
-    consume: (value) => (value ? DateTime.fromISO(value) : null),
   })
   declare entryDate: DateTime | null
 

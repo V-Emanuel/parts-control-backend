@@ -69,7 +69,6 @@ export default class StockControlsController {
 
   async update({ auth, request, response, params }: HttpContext) {
     try {
-      console.log('entrou aq')
       const user = await auth.authenticate()
       const userId = user.id
       const body = request.all()
