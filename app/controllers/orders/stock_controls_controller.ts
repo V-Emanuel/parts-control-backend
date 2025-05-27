@@ -66,4 +66,60 @@ export default class StockControlsController {
       return response.status(500).json({ error: 'Erro interno no servidor' })
     }
   }
+
+  async update({ auth, request, response, params }: HttpContext) {
+    try {
+      console.log('entrou aq')
+      const user = await auth.authenticate()
+      const userId = user.id
+      const body = request.all()
+
+      const orderId = Number(params.orderid)
+      if (isNaN(orderId)) {
+        return response.status(400).json({
+          error: 'Bad Request',
+          message: 'Parâmetro orderId inválido',
+        })
+      }
+
+      const stockControlValidated = await StockControlValidator.validate({
+        ...body,
+        order_data_id: orderId,
+      })
+
+      const stockControl = await StockControl.query().where('order_data_id', orderId).first()
+
+      if (!stockControl) {
+        return response.status(404).json({
+          error: 'Not Found',
+          message: 'Controle de estoque não encontrado',
+        })
+      }
+
+      const isAuthorized = user.admin || (await UserService.userHasCategory(userId, 'Estoquista'))
+
+      if (!isAuthorized) {
+        return response.status(403).json({
+          error: 'Unauthorized',
+          message: 'Usuário não tem permissão para editar este dado',
+        })
+      }
+
+      stockControl.merge({
+        nf: stockControlValidated.nf,
+        nfDate: stockControlValidated.nf_date,
+        accuracyDate: stockControlValidated.accuracy_date ?? null,
+        entryDate: stockControlValidated.entry_date ?? null,
+      })
+
+      await stockControl.save()
+
+      return response.ok(stockControl)
+    } catch (error) {
+      console.error(error)
+      return response.status(500).json({
+        error: 'Erro interno no servidor',
+      })
+    }
+  }
 }

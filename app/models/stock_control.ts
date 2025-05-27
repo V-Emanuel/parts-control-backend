@@ -17,14 +17,16 @@ export default class StockControl extends BaseModel {
   declare nfDate: DateTime
 
   @column.date({
-    serialize: (value) => value.toFormat('yyyy-MM-dd'),
+    serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
+    consume: (value) => (value ? DateTime.fromISO(value) : null),
   })
-  declare accuracyDate: DateTime
+  declare accuracyDate: DateTime | null
 
   @column.date({
-    serialize: (value) => value.toFormat('yyyy-MM-dd'),
+    serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
+    consume: (value) => (value ? DateTime.fromISO(value) : null),
   })
-  declare entryDate: DateTime
+  declare entryDate: DateTime | null
 
   @column({ isPrimary: true })
   declare orderDataId: number

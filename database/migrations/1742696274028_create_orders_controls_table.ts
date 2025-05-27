@@ -5,28 +5,49 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id') // PK
+
       table.datetime('shipping_date').nullable()
-      table.integer('num').notNullable()
-      table.integer('type_id').unsigned().references('id').inTable('types').onDelete('CASCADE')
-      table.string('branch_order').notNullable()
+      table.integer('num').nullable()
+
+      table
+        .integer('type_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('types')
+        .onDelete('CASCADE')
+
+      table.string('branch_order').nullable()
+
       table.string('guarantee').notNullable()
+
       table
         .integer('status_id')
         .unsigned()
+        .nullable()
         .references('id')
         .inTable('statuses')
         .onDelete('CASCADE')
-        .notNullable()
+
       table
         .integer('order_data_id')
         .unsigned()
+        .notNullable()
         .references('id')
         .inTable('orders_data')
+        .onDelete('CASCADE')
+
+      table
+        .integer('user_id')
+        .unsigned()
         .notNullable()
-      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
+
+      table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
+      table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
     })
   }
 

@@ -68,9 +68,11 @@ router
 
     router.get('/ordercontrol', [OrdersControlsController, 'index'])
     router.post('/ordercontrol', [OrdersControlsController, 'store'])
+    router.put('/ordercontrol/:id', [OrdersControlsController, 'update'])
 
     router.get('/stockcontrol', [StockControlsController, 'index'])
     router.post('/stockcontrol', [StockControlsController, 'store'])
+    router.put('/stockcontrol/:orderid', [StockControlsController, 'update'])
 
     router.get('/clientrelationship', [ClientRelationshipsController, 'index'])
     router.post('/clientrelationship', [ClientRelationshipsController, 'store'])

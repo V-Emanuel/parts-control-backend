@@ -7,11 +7,11 @@ export const OrderControlValidator = vine.compile(
       .date()
       .transform((date) => DateTime.fromJSDate(date))
       .optional(),
-    num: vine.number().positive(),
+    num: vine.number().positive().optional(),
     type_id: vine.number().positive(),
-    branch_order: vine.string(),
+    branch_order: vine.string().optional(),
     guarantee: vine.enum(['SIM', 'NÃO']),
-    status_id: vine.number().positive(),
+    status_id: vine.number().positive().optional(),
     order_data_id: vine.number().positive(),
   })
 )
