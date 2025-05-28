@@ -63,7 +63,6 @@ export default class UsersController {
     })
   }
 
-  // UserController.ts
   async update({ params, request, auth, response }: HttpContext) {
     const loggedUser = auth.user
     if (!loggedUser?.admin) {
@@ -131,5 +130,64 @@ export default class UsersController {
       .firstOrFail()
 
     return updatedUser
+  }
+
+  async store({ request, auth, response }: HttpContext) {
+    const loggedUser = auth.user
+    if (!loggedUser?.admin) {
+      return response.unauthorized({ error: 'Apenas administradores podem criar usuários' })
+    }
+
+    const {
+      fullName,
+      email,
+      password,
+      admin,
+      active,
+      companies = [],
+      categories = [],
+    } = request.only([
+      'fullName',
+      'email',
+      'password',
+      'admin',
+      'active',
+      'companies',
+      'categories',
+    ])
+
+    const user = await User.create({
+      fullName,
+      email,
+      password,
+      admin,
+      active,
+    })
+
+    if (!admin) {
+      if (companies.length) {
+        const companiesToCreate = companies.map((companyId: number) => ({
+          userId: user.id,
+          companyId,
+        }))
+        await UserCompany.createMany(companiesToCreate)
+      }
+
+      if (categories.length) {
+        const categoriesToCreate = categories.map((categoryId: number) => ({
+          userId: user.id,
+          categoryId,
+        }))
+        await UserCategory.createMany(categoriesToCreate)
+      }
+    }
+
+    const createdUser = await User.query()
+      .where('id', user.id)
+      .preload('userCompanies', (query) => query.preload('company'))
+      .preload('userCategories', (query) => query.preload('category'))
+      .firstOrFail()
+
+    return createdUser
   }
 }

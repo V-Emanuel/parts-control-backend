@@ -79,10 +79,10 @@ router
     router.put('/clientrelationship/:id', [ClientRelationshipsController, 'update'])
 
     router.get('/company', [CompaniesController, 'index'])
+    router.get('/category', [CategoriesController, 'index'])
 
     router
       .group(() => {
-        router.get('/category', [CategoriesController, 'index'])
         router.post('/category', [CategoriesController, 'store'])
         // router.delete('/category/:id', [CategoriesController, 'destroy'])
 
@@ -103,6 +103,7 @@ router
 
         router.get('/users', [UsersController, 'index'])
         router.get('/users/:id', [UsersController, 'show'])
+        router.post('/users', [UsersController, 'store'])
         router.put('/users/:id', [UsersController, 'update'])
       })
       .use(middleware.admin())
