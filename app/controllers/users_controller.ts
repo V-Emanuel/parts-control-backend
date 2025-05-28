@@ -2,6 +2,7 @@ import User from '#models/user'
 import type { HttpContext } from '@adonisjs/core/http'
 import UserCategory from '#models/user_category'
 import UserCompany from '#models/user_company'
+import { registerValidator } from '#validators/auth'
 
 export default class UsersController {
   async index({ auth, response }: HttpContext) {
@@ -138,43 +139,39 @@ export default class UsersController {
       return response.unauthorized({ error: 'Apenas administradores podem criar usuários' })
     }
 
-    const {
-      fullName,
-      email,
-      password,
-      admin,
-      active,
-      companies = [],
-      categories = [],
-    } = request.only([
-      'fullName',
-      'email',
-      'password',
-      'admin',
-      'active',
-      'companies',
-      'categories',
-    ])
+    const bodyValidated = await registerValidator.validate(request.all())
 
-    const user = await User.create({
-      fullName,
-      email,
-      password,
-      admin,
-      active,
-    })
+    // const {
+    //   fullName,
+    //   email,
+    //   password,
+    //   admin,
+    //   active,
+    //   companies = [],
+    //   categories = [],
+    // } = request.only([
+    //   'fullName',
+    //   'email',
+    //   'password',
+    //   'admin',
+    //   'active',
+    //   'companies',
+    //   'categories',
+    // ])
 
-    if (!admin) {
-      if (companies.length) {
-        const companiesToCreate = companies.map((companyId: number) => ({
+    const user = await User.create(bodyValidated)
+
+    if (!bodyValidated.admin) {
+      if (bodyValidated.companies) {
+        const companiesToCreate = bodyValidated.companies.map((companyId: number) => ({
           userId: user.id,
           companyId,
         }))
         await UserCompany.createMany(companiesToCreate)
       }
 
-      if (categories.length) {
-        const categoriesToCreate = categories.map((categoryId: number) => ({
+      if (bodyValidated.categories) {
+        const categoriesToCreate = bodyValidated.categories.map((categoryId: number) => ({
           userId: user.id,
           categoryId,
         }))

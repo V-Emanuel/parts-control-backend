@@ -5,6 +5,7 @@ const admin = vine.boolean()
 
 export const registerValidator = vine.compile(
   vine.object({
+    fullName: vine.string().maxLength(50),
     email: vine
       .string()
       .email()
@@ -16,6 +17,9 @@ export const registerValidator = vine.compile(
       }),
     password,
     admin,
+    active: vine.boolean(),
+    companies: vine.array(vine.number().positive()).optional().nullable(),
+    categories: vine.array(vine.number().positive()).optional().nullable(),
   })
 )
 
