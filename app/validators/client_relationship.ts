@@ -20,7 +20,7 @@ export const ClientRealtionshipValidator = vine.compile(
       .date()
       .transform((date) => DateTime.fromJSDate(date))
       .optional(),
-    observations: vine.string().maxLength(300).optional(),
+    observations: vine.string().maxLength(300),
     order_data_id: vine.number().positive(),
   })
 )

@@ -14,27 +14,27 @@ export default class ClientsRelationship extends BaseModel {
   declare firstContact: DateTime
 
   @column.date({
-    serialize: (value) => value.toFormat('yyyy-MM-dd'),
+    serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
   })
-  declare secondContact: DateTime
+  declare secondContact: DateTime | null
 
   @column.date({
-    serialize: (value) => value.toFormat('yyyy-MM-dd'),
+    serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
   })
-  declare thirdContact: DateTime
+  declare thirdContact: DateTime | null
 
   @column.date({
-    serialize: (value) => value.toFormat('yyyy-MM-dd'),
+    serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
   })
-  declare agendaDate: DateTime
+  declare agendaDate: DateTime | null
 
   @column.date({
-    serialize: (value) => value.toFormat('yyyy-MM-dd'),
+    serialize: (value) => (value ? value.toFormat('yyyy-MM-dd') : null),
   })
-  declare applicationDate: DateTime
+  declare applicationDate: DateTime | null
 
   @column()
-  declare observations: string | null
+  declare observations: string
 
   @column({ isPrimary: true })
   declare orderDataId: number

@@ -76,6 +76,7 @@ router
 
     router.get('/clientrelationship', [ClientRelationshipsController, 'index'])
     router.post('/clientrelationship', [ClientRelationshipsController, 'store'])
+    router.put('/clientrelationship/:id', [ClientRelationshipsController, 'update'])
 
     router.get('/company', [CompaniesController, 'index'])
 

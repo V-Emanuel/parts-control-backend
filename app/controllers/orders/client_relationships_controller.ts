@@ -68,4 +68,53 @@ export default class ClientRelationshipsController {
       return response.status(500).json({ error: 'Erro interno no servidor' })
     }
   }
+
+  async update({ auth, request, response, params }: HttpContext) {
+    try {
+      const body = request.all()
+      const user = await auth.authenticate()
+      const userId = user.id
+      const relationshipId = Number(params.id)
+
+      const clientReationshipValidated = await ClientRealtionshipValidator.validate(body)
+
+      const clientRelationship = await ClientsRelationship.query()
+        .where('id', relationshipId)
+        .first()
+
+      if (!clientRelationship) {
+        return response.status(404).json({
+          error: 'Not Found',
+          message: 'Registro de atendimento não encontrado',
+        })
+      }
+
+      const isAdmin = user.admin
+      const isCrm = await UserService.userHasCategory(user.id, 'CRM')
+
+      if (!isAdmin && !isCrm) {
+        return response.status(403).json({
+          error: 'Unauthorized',
+          message: 'Usuário não tem permissão para atualizar',
+        })
+      }
+
+      clientRelationship.merge({
+        firstContact: clientReationshipValidated.first_contact,
+        secondContact: clientReationshipValidated.second_contact,
+        thirdContact: clientReationshipValidated.third_contact,
+        agendaDate: clientReationshipValidated.agenda_date,
+        applicationDate: clientReationshipValidated.application_date,
+        observations: clientReationshipValidated.observations,
+        orderDataId: clientReationshipValidated.order_data_id,
+        userId: userId,
+      })
+
+      await clientRelationship.save()
+      return clientRelationship
+    } catch (error) {
+      console.error(error)
+      return response.status(500).json({ error: 'Erro interno no servidor' })
+    }
+  }
 }

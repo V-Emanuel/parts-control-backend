@@ -5,7 +5,7 @@ import { DateTime } from 'luxon'
 
 export default class extends BaseSeeder {
   async run() {
-    const orders = Array.from({ length: 120 }, () => ({
+    const orders = Array.from({ length: 20 }, () => ({
       companyId: faker.number.int({ min: 1, max: 4 }),
       osOrc: faker.helpers.arrayElement([22456, 20452, 23445]),
       orderDate: DateTime.fromJSDate(faker.date.past()),
