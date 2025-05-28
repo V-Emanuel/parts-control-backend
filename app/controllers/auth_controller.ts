@@ -23,6 +23,7 @@ export default class AuthController {
     const token = await User.accessTokens.create(user)
     return {
       data: token,
+      id: user.id,
       fullName: user.fullName,
       email: user.email,
       admin: user.admin,

@@ -11,7 +11,7 @@ export default class UsersController {
       return response.status(403).json({ error: 'Unauthorized' })
     }
 
-    const users = await User.query().whereNot('id', user.id)
+    const users = await User.all()
 
     const userCategories = await UserCategory.query().preload('category')
     const userCompanies = await UserCompany.query().preload('company')
@@ -63,6 +63,7 @@ export default class UsersController {
     })
   }
 
+  // UserController.ts
   async update({ params, request, auth, response }: HttpContext) {
     const loggedUser = auth.user
     if (!loggedUser?.admin) {
@@ -80,13 +81,24 @@ export default class UsersController {
       email,
       password,
       admin,
+      active,
       companyIds = [],
       categoryIds = [],
-    } = request.only(['fullName', 'email', 'password', 'admin', 'companyIds', 'categoryIds'])
+    } = request.only([
+      'fullName',
+      'email',
+      'password',
+      'admin',
+      'active',
+      'companyIds',
+      'categoryIds',
+    ])
 
     user.fullName = fullName
     user.email = email
     user.admin = admin
+    user.active = active
+
     if (password) {
       user.password = password
     }
